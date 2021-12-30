@@ -1,0 +1,44 @@
+version: "3.7"
+
+services:
+  versatile-shop:
+    image: versatile-shop
+    build:
+      context: .
+    container_name: versatile-shop
+    ports:
+      - "5000:8080"
+    restart: on-failure
+    links:
+      - postgre
+    depends_on:
+      - postgre
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/versatile-shop
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_DATASOURCE_HIKARI_SCHEMA=main
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    expose:
+      - 5000
+
+  postgre:
+    image: postgres:latest
+    container_name: postgre
+    volumes:
+      - /opt/postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5001:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=versatile
+      - POSTGRES_SCHEMA=main
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    expose:
+      - 5001
