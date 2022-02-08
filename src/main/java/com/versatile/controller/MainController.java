@@ -1,4 +1,4 @@
-package shop.versatile.controller;
+package com.versatile.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
