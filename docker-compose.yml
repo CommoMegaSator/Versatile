@@ -1,20 +1,20 @@
 version: "3.7"
 
 services:
-  versatile-shop:
-    image: versatile-shop
+  backend:
+    image: backend
     build:
       context: .
-    container_name: versatile-shop
+    container_name: backend
     ports:
       - "5000:8080"
     restart: on-failure
     links:
-      - postgre
+      - database
     depends_on:
-      - postgre
+      - database
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/versatile-shop
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/versatile
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_DATASOURCE_HIKARI_SCHEMA=main
@@ -22,9 +22,17 @@ services:
     expose:
       - 5000
 
-  postgre:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/frontend/src
+    container_name: frontend
+
+  database:
     image: postgres:latest
-    container_name: postgre
+    container_name: database
     volumes:
       - /opt/postgres-data:/var/lib/postgresql/data
     ports:
