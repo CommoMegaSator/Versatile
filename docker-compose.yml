@@ -9,15 +9,13 @@ services:
     ports:
       - "5000:8080"
     restart: on-failure
-    links:
-      - database
     depends_on:
       - database
+      - kafka
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/versatile
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database:5432/versatile
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
-      - SPRING_DATASOURCE_HIKARI_SCHEMA=main
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     expose:
       - 5000
@@ -41,7 +39,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=versatile
-      - POSTGRES_SCHEMA=main
     restart: on-failure
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
@@ -50,3 +47,24 @@ services:
       retries: 5
     expose:
       - 5001
+
+#  zookeeper:
+#    image: wurstmeister/zookeeper
+#    container_name: zooleeper
+#    ports:
+#      - "2181:2181"
+#
+#  kafka:
+#    image: wurstmeister/kafka
+#    container_name: kafka
+#    ports:
+#      - "9092:9092"
+#    depends_on:
+#      - zookeeper
+#    environment:
+#      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+#      KAFKA_ADVERTISED_PORT: 9092
+#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+#      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+#      KAFKA_DELETE_TOPIC_ENABLE: 'true'
+#      KAFKA_CREATE_TOPICS: "Topic:1:1"

@@ -8,11 +8,11 @@
 		<version>2.6.2</version>
 		<relativePath/>
 	</parent>
-	<groupId>shop</groupId>
+	<groupId>com</groupId>
 	<artifactId>versatile</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>Versatile-shop</name>
-	<description>Versatile Online Shop</description>
+	<name>Versatile</name>
+	<description>Versatile</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -76,7 +76,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-						<finalName>versatile-shop</finalName>
+						<finalName>versatile</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

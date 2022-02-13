@@ -4,3 +4,8 @@ Technologies that you need:
 * PostgreSQL
 * Docker
 * Nodejs
+
+Kafka container not working properly yet.
+Download and start it locally using:
+bin/kafka-server-start.sh config/server.properties <br>
+bin/zookeeper-server-start.sh config/zookeeper.properties
