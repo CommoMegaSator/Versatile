@@ -13,10 +13,10 @@ function App() {
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
         <button onClick={function (){
-          axios.get('backend:5000').then(
+          axios.get('http://localhost:5000').then(
               function (response){
                 alert(response.status)
-              })
+              }).catch(()=>alert("Server is not responding"))
         }
         }>request to backend</button><br/>
       </header>
