@@ -4,3 +4,5 @@ Technologies that you need:
 * PostgreSQL
 * Docker
 * Nodejs
+
+You can find api details [here.](http://localhost:5000/swagger-ui.html)
